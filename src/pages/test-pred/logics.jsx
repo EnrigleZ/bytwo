@@ -2,7 +2,7 @@ import Axios from 'axios'
 import { stringify } from 'qs'
 
 const GetTestsetPredictionAPI = (params) => {
-    const ret = Axios.get(`/pred/?${stringify(params)}`)
+    const ret = Axios.post("pred/", params)
     return ret
 }
 
