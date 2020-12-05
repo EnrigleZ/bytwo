@@ -1,14 +1,17 @@
+import React from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons'
 
 import { store } from '../redux'
+import ConfigModal from './modal'
 
 const { SubMenu } = Menu
 const { Header, Content, Sider } = Layout
 
 const MyLayout = (props) => {
+    const [modalDisplay, setModalDisplay] = React.useState(false)
+
     return (
         <Provider store={store}>
             <Layout className="my-layout">
@@ -22,6 +25,7 @@ const MyLayout = (props) => {
                             defaultOpenKeys={['sub1']}
                             style={{ height: '100%', borderRight: 0 }}
                         >
+                            <Menu.Item onClick={() => {setModalDisplay(true)}}>设置参数</Menu.Item>
                             <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
                                 <Menu.Item key="1">option1</Menu.Item>
                                 <Menu.Item key="2">option2</Menu.Item>
@@ -60,6 +64,7 @@ const MyLayout = (props) => {
                         </Content>
                     </Layout>
                 </Layout>
+                <ConfigModal display={modalDisplay} setDisplay={setModalDisplay} />
             </Layout>
         </Provider>)
 }

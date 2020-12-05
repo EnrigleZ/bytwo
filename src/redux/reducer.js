@@ -1,4 +1,4 @@
-import { updateConfig, UpdateConfig } from './action'
+import { UpdateConfig } from './action'
 
 const initState = {
     config: {
