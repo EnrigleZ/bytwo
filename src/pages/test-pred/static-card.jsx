@@ -1,11 +1,7 @@
 import React from 'react'
-import { Button, Col, Card, Row, Statistic, Descriptions, Divider } from 'antd'
+import { Button, Col, Card, Row, Statistic, Descriptions, Divider, Spin } from 'antd'
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
 import { toPercentage } from '../../utils/stringify'
-
-function isNumber(s) {
-    return !Number.isNaN(parseFloat(s))
-}
 
 const propInc = {
     valueStyle: {color: '#cf1322'},
@@ -41,33 +37,35 @@ export default (props) => {
     let { auc: a_, precision: p_, f1: f_, recall: r_ } = compare
 
     return (
-        <Card loading={loading} title={title} extra={extra}>
-            <Descriptions>
-                <Descriptions.Item label="模型">{ model_name }</Descriptions.Item>
-                <Descriptions.Item label="数据集">{ dataset }</Descriptions.Item>
-                <Descriptions.Item label="平均交互数">{ average_exercise }</Descriptions.Item>
-                <Descriptions.Item label="学生数">{ n_students }</Descriptions.Item>
-                <Descriptions.Item label="习题数">{ n_exercises }</Descriptions.Item>
-            </Descriptions>
-            <Divider>
-                <span style={{ color: "#999", fontStyle: "italic" }}>测试结果</span>
-            </Divider>
-            <Row gutter={16}>
-                <Col span={12}>
-                    <StatComp title="AUC" value={auc} compare={a_} />
-                </Col>
-                <Col span={12}>
-                    <StatComp title="F1" value={f1} compare={f_} />
-                </Col>
-            </Row>
-            <Row gutter={16}>
-                <Col span={12}>
-                    <StatComp title="Precision" value={precision} compare={p_} />
-                </Col>
-                <Col span={12}>
-                    <StatComp title="Recall" value={recall} compare={r_} />
-                </Col>
-            </Row>
-        </Card>
+        <Spin spinning={loading} tip="模型计算中">
+            <Card loading={loading} title={title} extra={extra}>
+                <Descriptions>
+                    <Descriptions.Item label="模型">{ model_name }</Descriptions.Item>
+                    <Descriptions.Item label="数据集">{ dataset }</Descriptions.Item>
+                    <Descriptions.Item label="平均交互数">{ average_exercise }</Descriptions.Item>
+                    <Descriptions.Item label="学生数">{ n_students }</Descriptions.Item>
+                    <Descriptions.Item label="习题数">{ n_exercises }</Descriptions.Item>
+                </Descriptions>
+                <Divider>
+                    <span style={{ color: "#999", fontStyle: "italic" }}>测试结果</span>
+                </Divider>
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <StatComp title="AUC" value={auc} compare={a_} />
+                    </Col>
+                    <Col span={12}>
+                        <StatComp title="F1" value={f1} compare={f_} />
+                    </Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <StatComp title="Precision" value={precision} compare={p_} />
+                    </Col>
+                    <Col span={12}>
+                        <StatComp title="Recall" value={recall} compare={r_} />
+                    </Col>
+                </Row>
+            </Card>
+        </Spin>
     )
 }
