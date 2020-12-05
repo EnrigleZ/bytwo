@@ -8,12 +8,12 @@ function isNumber(s) {
 }
 
 const propInc = {
-    valueStyle: {color: '#3f8600'},
+    valueStyle: {color: '#cf1322'},
     prefix: (<ArrowUpOutlined />)
 }
 
 const propDec = {
-    valueStyle: { color: '#cf1322'},
+    valueStyle: { color: '#3f8600'},
     prefix: (<ArrowDownOutlined />)
 }
 
@@ -54,10 +54,10 @@ export default (props) => {
             </Divider>
             <Row gutter={16}>
                 <Col span={12}>
-                    <StatComp title="F1" value={f1} compare={f_} />
+                    <StatComp title="AUC" value={auc} compare={a_} />
                 </Col>
                 <Col span={12}>
-                    <StatComp title="AUC" value={auc} compare={a_} />
+                    <StatComp title="F1" value={f1} compare={f_} />
                 </Col>
             </Row>
             <Row gutter={16}>
