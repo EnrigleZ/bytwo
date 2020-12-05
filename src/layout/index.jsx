@@ -1,72 +1,56 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb } from 'antd'
-import { Provider } from 'react-redux'
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons'
 
-import { store } from '../redux'
 import ConfigModal from './modal'
 
 const { SubMenu } = Menu
 const { Header, Content, Sider } = Layout
 
 const MyLayout = (props) => {
+    const { modelName } = props
+
     const [modalDisplay, setModalDisplay] = React.useState(false)
 
     return (
-        <Provider store={store}>
-            <Layout className="my-layout">
-                <Header className="my-header">
-                    张弘博的毕业设计展示</Header>
-                <Layout>
-                    <Sider width={200} className="site-layout-background">
-                        <Menu
-                            mode="inline"
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            style={{ height: '100%', borderRight: 0 }}
-                        >
-                            <Menu.Item onClick={() => {setModalDisplay(true)}}>设置参数</Menu.Item>
-                            <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                                <Menu.Item key="1">option1</Menu.Item>
-                                <Menu.Item key="2">option2</Menu.Item>
-                                <Menu.Item key="3">option3</Menu.Item>
-                                <Menu.Item key="4">option4</Menu.Item>
-                            </SubMenu>
-                            <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-                                <Menu.Item key="5">option5</Menu.Item>
-                                <Menu.Item key="6">option6</Menu.Item>
-                                <Menu.Item key="7">option7</Menu.Item>
-                                <Menu.Item key="8">option8</Menu.Item>
-                            </SubMenu>
-                            <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-                                <Menu.Item key="9">option9</Menu.Item>
-                                <Menu.Item key="10">option10</Menu.Item>
-                                <Menu.Item key="11">option11</Menu.Item>
-                                <Menu.Item key="12">option12</Menu.Item>
-                            </SubMenu>
-                        </Menu>
-                    </Sider>
-                    <Layout style={{ padding: '0 24px 24px' }}>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
-                            <Breadcrumb.Item>List</Breadcrumb.Item>
-                            <Breadcrumb.Item>App</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <Content
-                            className="site-layout-background"
-                            style={{
-                                padding: 24,
-                                margin: 0,
-                                minHeight: 280,
-                            }}
-                        >
-                            {props.children}
-                        </Content>
-                    </Layout>
+        <Layout className="my-layout">
+            <Header className="my-header">
+                张弘博的毕业设计展示</Header>
+            <Layout>
+                <Sider width={200} className="site-layout-background">
+                    <Menu
+                        mode="inline"
+                        defaultSelectedKeys={['1']}
+                        defaultOpenKeys={['sub1']}
+                        style={{ height: '100%', borderRight: 0 }}
+                    >
+                        {/* <Menu.Item key="config" onClick={() => { setModalDisplay(true) }}>设置参数</Menu.Item> */}
+                        <Menu.Item key="test-pred">
+                            <Link to="/test-pred">测试集性能</Link>
+                        </Menu.Item>
+                    </Menu>
+                </Sider>
+                <Layout style={{ padding: '0 24px 24px' }}>
+                    <Breadcrumb style={{ margin: '16px 0' }}>
+                        <Breadcrumb.Item>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item>List</Breadcrumb.Item>
+                        <Breadcrumb.Item>App</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <Content
+                        className="site-layout-background"
+                        style={{
+                            padding: 24,
+                            margin: 0,
+                            minHeight: 280,
+                        }}
+                    >
+                        {props.children}
+                    </Content>
                 </Layout>
-                <ConfigModal display={modalDisplay} setDisplay={setModalDisplay} />
             </Layout>
-        </Provider>)
+            <ConfigModal display={modalDisplay} setDisplay={setModalDisplay} />
+        </Layout>
+    )
 }
 
 export default MyLayout
