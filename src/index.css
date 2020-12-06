@@ -21,3 +21,18 @@ code {
   font-size: 22px;
   font-weight: bold;
 }
+
+* {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.exercises-area {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 600px;
+  align-items: flex-start;
+  transform: translateX(-50%);
+  left: 50%;
+  position: relative;
+}

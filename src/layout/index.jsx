@@ -15,7 +15,7 @@ const MyLayout = (props) => {
     return (
         <Layout className="my-layout">
             <Header className="my-header">
-                张弘博的毕业设计展示</Header>
+                张弘博毕业设计展示</Header>
             <Layout>
                 <Sider width={200} className="site-layout-background">
                     <Menu
@@ -27,6 +27,9 @@ const MyLayout = (props) => {
                         {/* <Menu.Item key="config" onClick={() => { setModalDisplay(true) }}>设置参数</Menu.Item> */}
                         <Menu.Item key="test-pred">
                             <Link to="/test-pred">测试集性能</Link>
+                        </Menu.Item>
+                        <Menu.Item key="pred-step">
+                            <Link to="/pred-step">预测-Step</Link>
                         </Menu.Item>
                     </Menu>
                 </Sider>

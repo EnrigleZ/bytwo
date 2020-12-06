@@ -1,8 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Modal, Form, Tooltip, Select, Checkbox } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
-import { mapStateToProps, mapDispatchToProps } from '../redux'
+
+import { DATASETS } from '../misc/dataset'
 
 const { Item } = Form
 const { Option } = Select
@@ -12,8 +12,18 @@ const formLayout = {
     wrapperCol: { span: 16 },
 }
 
+function getDatasetOptions(fields = null) {
+    const datasets = fields === null ? DATASETS
+        : DATASETS.filter(x => fields.indexOf(x.key) >= 0)
+
+    console.log(datasets)
+    return datasets.map(({ key, name }) => (
+        <Option value={key} key={key}>{ name }</Option>
+    ))
+}
+
 const ConfigModal = (props) => {
-    const { display, setDisplay, modelName, dataset, weightDecay, update } = props
+    const { display, setDisplay, modelName, dataset, weightDecay = false, update, datasets } = props
     const [datasetSelected, setDataset] = React.useState(dataset)
     const [modelSelected, setModel] = React.useState(modelName)
     const [decaySelected, setDecay] = React.useState(weightDecay)
@@ -60,8 +70,7 @@ const ConfigModal = (props) => {
             </Item>
             <Item label="数据集">
                 <Select defaultValue={dataset} value={datasetSelected} onChange={onDatasetChange}>
-                    <Option value="assist2009">Assist 2009</Option>
-                    <Option value="assist2015">Assist 2015</Option>
+                    { getDatasetOptions(datasets) }
                 </Select>
             </Item>
             <Item label={<span>启用权重衰减&nbsp;
