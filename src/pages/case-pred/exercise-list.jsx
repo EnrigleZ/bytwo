@@ -4,28 +4,19 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 
 const { Step } = Steps
 
-const correctStyle = { backgroundColor: '#87d068' }
+const correctStyle = { color: '#52c41a', backgroundColor: '#f6ffed' }
 const wrongStyle = {
-    color: '#f56a00', backgroundColor: '#fde3cf'
+    color: '#fa541c', backgroundColor: '#fff2e8'
 }
 
-function resizeList(list, n, max) {
-    if (!list) list = []
-    if (list.length > n) list = list.slice(0, n)
-    while (list.length < n) {
-        list.push({id: (Math.random() * max) << 0, answer: Math.random() > 0.5})
-    }
-    return list
-}
-
-const ExerciseStep = ({ value, toggle, change }) => {
+const ExerciseStep = ({ value, toggle, change, index }) => {
     const { id, answer } = value
     const ref = React.createRef()
     return (
         <Avatar
-            //onClick={toggle}
+            onClick={toggle}
             onDoubleClick={() => {
-                return
+                // return
                 Modal.confirm({
                     content: (
                         <Form>
@@ -45,7 +36,7 @@ const ExerciseStep = ({ value, toggle, change }) => {
             }}
             size={40}
             style={answer ? correctStyle : wrongStyle}
-        >{ id }</Avatar>
+        >{ id }<span className="xindex">{index}</span></Avatar>
     )
 }
 
@@ -86,6 +77,7 @@ const ExercistList = (props) => {
                     <div key={index} style={{ flex: "1 0 9.9%", paddingBottom: "3px" }}>
                         <ExerciseStep
                             key={index}
+                            index={index}
                             value={value}
                             toggle={() => { toggleAnswerCallback(index) }}
                             change={(newId) => { changeIdCallback(index, newId) } }

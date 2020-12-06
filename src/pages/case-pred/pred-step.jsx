@@ -23,7 +23,7 @@ const ProgressArea = (props) => {
         <>
             <Row gutter={16}>
                 <Col offset={6} span={6}>
-                    <Progress format={(x) => {return invalid || Number.isNaN(percentage) ? "-" : x}} strokeColor={color} width={200} type="circle" percent={percentage.toFixed(2)} />
+                    <Progress format={(x) => {return invalid || Number.isNaN(percentage) ? "-" : `${x}%`}} strokeColor={color} width={200} type="circle" percent={percentage.toFixed(2)} />
                 </Col>
                 <Col span={12}>
                     <h1>选择题目编号</h1>

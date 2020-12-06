@@ -36,3 +36,13 @@ code {
   left: 50%;
   position: relative;
 }
+
+.xindex {
+  position: absolute;
+  font-size: 14px;
+  color: #CCC;
+  bottom: 0;
+  line-height: 14px;
+  right: -10px;
+  z-index: 100;
+}

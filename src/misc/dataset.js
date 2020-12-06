@@ -49,16 +49,6 @@ const DEFAULT_CASE = [
     {id: 7, answer: true},
     {id: 8, answer: false},
     {id: 8, answer: false},
-    {id: 8, answer: false},
-    {id: 8, answer: false},
-    {id: 8, answer: false},
-    {id: 8, answer: false},
-    {id: 9, answer: false},
-    {id: 9, answer: false},
-    {id: 9, answer: false},
-    {id: 9, answer: false},
-    {id: 9, answer: false},
-    {id: 9, answer: false},
 ]
 
 export const DATASETS = [

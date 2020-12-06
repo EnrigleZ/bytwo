@@ -44,7 +44,7 @@ const ConfigModal = (props) => {
 
     const onOk = () => {
         if (!combinationValid(datasetSelected, modelSelected, decaySelected)) {
-            message.error("错误组合")
+            message.error("模型不支持该数据集")
             return
         }
         setDisplay(false)
