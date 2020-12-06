@@ -15,7 +15,7 @@ const MyLayout = (props) => {
     return (
         <Layout className="my-layout">
             <Header className="my-header">
-                张弘博毕业设计展示</Header>
+                毕业设计展示</Header>
             <Layout>
                 <Sider width={200} className="site-layout-background">
                     <Menu

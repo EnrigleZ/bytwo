@@ -22,7 +22,7 @@ function App() {
               <Route path="/test-pred" component={TestsetPrediction} />
               <Route path="/pred-step" component={PredictStepPage} />
               <Route path="/pred-exercise" component={PredictExercisePage} />
-              <Route path="/" component={HomePage} />
+              <Route path="/" component={TestsetPrediction} />
             </Switch>
           </MyLayout>
         </BrowserRouter>

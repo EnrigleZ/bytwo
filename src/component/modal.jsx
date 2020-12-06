@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Form, Tooltip, Select, Checkbox } from 'antd'
+import { Modal, Form, Tooltip, Select, Checkbox, message } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 
 import { DATASETS } from '../misc/dataset'
@@ -22,6 +22,20 @@ function getDatasetOptions(fields = null) {
     ))
 }
 
+function combinationValid(dataset, modelName, decay) {
+    console.log(dataset, modelName, decay)
+    if (modelName === "PAKT") {
+        return !decay || dataset.indexOf('_') >= 0
+    }
+    if (modelName === "UTKT") {
+        return dataset.indexOf('_') >= 0
+    }
+    if (modelName === "SAKT") {
+        return dataset.indexOf('_') < 0
+    }
+    return false
+}
+
 const ConfigModal = (props) => {
     const { display, setDisplay, modelName, dataset, weightDecay = false, update, datasets } = props
     const [datasetSelected, setDataset] = React.useState(dataset)
@@ -29,6 +43,10 @@ const ConfigModal = (props) => {
     const [decaySelected, setDecay] = React.useState(weightDecay)
 
     const onOk = () => {
+        if (!combinationValid(datasetSelected, modelSelected, decaySelected)) {
+            message.error("错误组合")
+            return
+        }
         setDisplay(false)
         update(modelSelected, datasetSelected, decaySelected)
     }
@@ -66,6 +84,7 @@ const ConfigModal = (props) => {
                 <Select defaultValue={modelName} value={modelSelected} onChange={onModelChange}>
                     <Option value="PAKT">PAKT</Option>
                     <Option value="SAKT">SAKT</Option>
+                    <Option value="UTKT">UTKT</Option>
                 </Select>
             </Item>
             <Item label="数据集">
