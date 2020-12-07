@@ -8,13 +8,14 @@ import { getDatasetInfo } from '../../misc/dataset'
 
 
 
-const ChartArea = (props) => {
+const ChartArea = React.memo((props) => {
     const {results} = props
     if (!results) return (<Empty description="未提交实验" />)
     const config = getConfigs(results)
     return (
         <Line {...config} />)
-}
+})
+
 const PredictExercisePage = (props) => {
 
     const [n, setN] = React.useState(null)
