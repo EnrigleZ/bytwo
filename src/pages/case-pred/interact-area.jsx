@@ -51,6 +51,8 @@ const InteractArea = (props) => {
                 display={display}
                 setDisplay={setDisplay}
                 update={update}
+                acceptModels={['UTKT']}
+                modelName="UTKT"
             />
             <Divider />
             { statisticArea }

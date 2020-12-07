@@ -12,13 +12,11 @@ const formLayout = {
     wrapperCol: { span: 16 },
 }
 
-function getDatasetOptions(fields = null) {
+function getDatasetOptions(fields = null, modelSelected = null, decaySelected = false) {
     const datasets = fields === null ? DATASETS
         : DATASETS.filter(x => fields.indexOf(x.key) >= 0)
-
-    console.log(datasets)
     return datasets.map(({ key, name }) => (
-        <Option value={key} key={key}>{ name }</Option>
+        <Option disabled={!modelSelected || !combinationValid(key, modelSelected, decaySelected)} value={key} key={key}>{ name }</Option>
     ))
 }
 
@@ -36,8 +34,28 @@ function combinationValid(dataset, modelName, decay) {
     return false
 }
 
+function name2Option(name) {
+    return (<Option key={name} value={name}>{name}</Option>)
+}
+
+function getOptions(acceptModels) {
+    let all = ["PAKT", "SAKT", "UTKT"]
+    if (acceptModels) {
+        all = all.filter(x => acceptModels.indexOf(x) >= 0)
+    }
+    return all.map(x => name2Option(x))
+}
+
 const ConfigModal = (props) => {
-    const { display, setDisplay, modelName, dataset, weightDecay = false, update, datasets } = props
+    const { display,
+        setDisplay,
+        modelName,
+        dataset,
+        weightDecay = false,
+        update,
+        datasets,
+        acceptModels = null
+    } = props
     const [datasetSelected, setDataset] = React.useState(dataset)
     const [modelSelected, setModel] = React.useState(modelName)
     const [decaySelected, setDecay] = React.useState(weightDecay)
@@ -82,14 +100,12 @@ const ConfigModal = (props) => {
         <Form {...formLayout}>
             <Item label="模型">
                 <Select defaultValue={modelName} value={modelSelected} onChange={onModelChange}>
-                    <Option value="PAKT">PAKT</Option>
-                    <Option value="SAKT">SAKT</Option>
-                    <Option value="UTKT">UTKT</Option>
+                    { getOptions(acceptModels) }
                 </Select>
             </Item>
             <Item label="数据集">
                 <Select defaultValue={dataset} value={datasetSelected} onChange={onDatasetChange}>
-                    { getDatasetOptions(datasets) }
+                    { getDatasetOptions(datasets, modelSelected, decaySelected) }
                 </Select>
             </Item>
             <Item label={<span>启用权重衰减&nbsp;
