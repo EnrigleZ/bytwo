@@ -35,7 +35,7 @@ const PredictExercisePage = (props) => {
             message.error("请填写题号")
             return
         }
-        if (exercise >= datasetInfo.totalExercises || exercise < 0) {
+        if (exercise >= datasetInfo.totalExercises + datasetInfo.base || exercise < datasetInfo.base) {
             message.error(`题号"${exercise}"不合法`)
             return
         }
