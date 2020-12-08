@@ -17,18 +17,16 @@ const StatComp = ({ value, compare, title }) => {
     const delta = parseFloat(value) - parseFloat(compare)
 
     const valueStyle = !delta ? {} : delta > 0 ? propInc : propDec
-    console.log(valueStyle)
-
     return (<Statistic {...valueStyle} title={title} value={toPercentage(value)} />)
 }
 
 export default (props) => {
-    const { result, loading, title, setDisplay, compare } = props
+    const { result, loading, title, compare } = props
     const extra = (<Button
         type="primary"
-        onClick={() => {setDisplay(true)}}
+        onClick={() => {}}
     >
-        选择参数
+        一个按钮
     </Button>)
 
     let { auc, f1, precision, recall } = result

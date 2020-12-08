@@ -9,8 +9,9 @@ import MyLayout from './layout'
 
 import HomePage from './pages/home'
 import TestsetPrediction from './pages/test-pred'
-import PredictStepPage from './pages/case-pred/pred-step'
-import PredictExercisePage from './pages/case-pred/pred-exercise'
+import TailPrediction from './pages/tail-pred'
+// import PredictStepPage from './pages/case-pred/pred-step'
+// import PredictExercisePage from './pages/case-pred/pred-exercise'
 
 function App() {
   return (
@@ -20,9 +21,8 @@ function App() {
           <MyLayout>
             <Switch>
               <Route path="/test-pred" component={TestsetPrediction} />
-              <Route path="/pred-step" component={PredictStepPage} />
-              <Route path="/pred-exercise" component={PredictExercisePage} />
-              <Route path="/" component={HomePage} />
+              <Route path="/tail-pred" component={TailPrediction} />
+              <Route path="/" component={TestsetPrediction} />
             </Switch>
           </MyLayout>
         </BrowserRouter>

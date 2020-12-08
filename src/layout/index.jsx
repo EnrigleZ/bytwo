@@ -8,9 +8,6 @@ const { SubMenu } = Menu
 const { Header, Content, Sider } = Layout
 
 const MyLayout = (props) => {
-    const { modelName } = props
-
-    const [modalDisplay, setModalDisplay] = React.useState(false)
 
     return (
         <Layout className="my-layout">
@@ -28,12 +25,15 @@ const MyLayout = (props) => {
                         <Menu.Item key="test-pred">
                             <Link to="/test-pred">测试集性能</Link>
                         </Menu.Item>
-                        <Menu.Item key="pred-step">
+                        <Menu.Item key="tail-pred">
+                            <Link to="/tail-pred">尾实体预测</Link>
+                        </Menu.Item>
+                        {/* <Menu.Item key="pred-step">
                             <Link to="/pred-step">各题目作答预测</Link>
                         </Menu.Item>
                         <Menu.Item key="pred-exercise">
                             <Link to="/pred-exercise">题目掌握变化曲线</Link>
-                        </Menu.Item>
+                        </Menu.Item> */}
                     </Menu>
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px' }}>
@@ -54,7 +54,7 @@ const MyLayout = (props) => {
                     </Content>
                 </Layout>
             </Layout>
-            <ConfigModal display={modalDisplay} setDisplay={setModalDisplay} />
+            {/* <ConfigModal display={modalDisplay} setDisplay={setModalDisplay} /> */}
         </Layout>
     )
 }
