@@ -35,7 +35,7 @@ const InteractArea = (props) => {
                     <Statistic title="数据集" value={dataset.name} />
                 </Col>
                 <Col span={12}>
-                    <Statistic title="总习题数" value={n} />
+                    <Statistic title="题号范围" value={dataset && `${dataset.base} - ${dataset.base + n - 1}`} />
                 </Col>
             </Row>
             <Divider />
