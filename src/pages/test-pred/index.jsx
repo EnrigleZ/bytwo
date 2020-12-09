@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, Descriptions, Card, Button, Tag, Select, Form, message } from 'antd'
+import { Divider, Descriptions, Card, Button, Tag, Select, Form, message, Progress } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
 import { Line } from '@ant-design/charts'
 
@@ -100,6 +100,7 @@ const TestsetPredictionPage = (props) => {
                         </Select>
                     </Form.Item>
                 </Form>
+                { status === "running" && (<Progress percent={50} />)}
             </Card>
             <Divider />
             <StaticCard title="TransE+MLP(tanh)" result={result} loading={status === "running"} compare={COMPAREMAP[compareKey]} />
