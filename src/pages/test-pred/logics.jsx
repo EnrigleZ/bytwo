@@ -34,6 +34,6 @@ export const result2list = (result) => {
     for (const model in COMPAREMAP) {
         ret = ret.concat(singleResult2List(COMPAREMAP[model], COMPAREMAP[model].name))
     }
-    ret = ret.concat(singleResult2List(result, 'transe+MLP(tanh)'))
+    ret = ret.concat(singleResult2List(result, 'Transe+MLP(tanh)'))
     return ret
 }
