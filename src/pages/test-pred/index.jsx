@@ -21,20 +21,26 @@ const TestsetPredictionPage = (props) => {
     const [compareKey, setCompareKey] = React.useState('transe')
     const [intv, setIntv] = React.useState(null)
     const [list, setList] = React.useState(result2list(null))
+    const [progr, setProgr] = React.useState(0)
     const [color, tagname] = tagMap[status]
 
     const checkStatus = React.useCallback((intv) => {
         GetCheckStatus().then(res => {
-            const { status } = res.data
+            const { status, progress } = res.data
             setStatus(status)
             if (status !== 'running') {
                 clearInterval(intv)
-                // 注意null progress
                 if (status === "finished") {
                     const {results} = res.data
                     setResult(results)
                     const ls = result2list(results)
                     setList(ls)
+                }
+            } else {
+                // 注意null progress
+                const value = Number.parseInt(progress)
+                if (!Number.isNaN(value)) {
+                    setProgr(value)
                 }
             }
         })
@@ -46,7 +52,7 @@ const TestsetPredictionPage = (props) => {
         checkStatus()
         const interval = setInterval(() => {
             checkStatus(interval)
-        }, 1000)
+        }, 3000)
         setIntv(interval)
         return interval
     }
@@ -102,7 +108,7 @@ const TestsetPredictionPage = (props) => {
                         </Select>
                     </Form.Item>
                 </Form>
-                { status === "running" && (<Progress percent={50} />)}
+                { status === "running" && (<Progress percent={progr} />)}
             </Card>
             <Divider />
             <StaticCard title="transE+MLP(tanh)" result={result} loading={status === "running"} compare={COMPAREMAP[compareKey]} />

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, Col, Card, Row, Statistic, Descriptions, Divider, Spin } from 'antd'
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
-import { toPercentage } from '../../utils/stringify'
 
 const propInc = {
     valueStyle: { color: '#cf1322' },
@@ -17,7 +16,7 @@ const StatComp = ({ value, compare, title, percentage, negative }) => {
     const delta = parseFloat(value) - parseFloat(compare)
 
     const valueStyle = !delta ? {} : delta > 0 ^ negative ? propInc : propDec
-    const valueStr = '' + value + (percentage ? '%' : '')
+    const valueStr = '' + (negative ? value : (value * 100).toFixed(2)) + (percentage ? '%' : '')
     let extra = {}
     if (negative) extra.prefix = null
     return (<Statistic {...valueStyle} title={title} value={value === undefined ? '-' : valueStr} {...extra}/>)
@@ -27,7 +26,6 @@ export default (props) => {
     const { result, loading, title, compare } = props
 
     let { hit1, hit3, hit5, hit10, mr } = result
-    const { model_name, n_exercises, n_students, average_exercise, dataset } = result
 
     let { hit1: h1, hit3: h3, hit5: h5, hit10: h10, mr: m_ } = compare
 
