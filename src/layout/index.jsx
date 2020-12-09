@@ -23,10 +23,10 @@ const MyLayout = (props) => {
                     >
                         {/* <Menu.Item key="config" onClick={() => { setModalDisplay(true) }}>设置参数</Menu.Item> */}
                         <Menu.Item key="test-pred">
-                            <Link to="/test-pred">测试集性能</Link>
+                            <Link to="/test-pred">性能测试</Link>
                         </Menu.Item>
                         <Menu.Item key="tail-pred">
-                            <Link to="/tail-pred">尾实体预测</Link>
+                            <Link to="/tail-pred">选课预测</Link>
                         </Menu.Item>
                         {/* <Menu.Item key="pred-step">
                             <Link to="/pred-step">各题目作答预测</Link>

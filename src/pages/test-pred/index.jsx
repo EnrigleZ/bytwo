@@ -29,9 +29,11 @@ const TestsetPredictionPage = (props) => {
             setStatus(status)
             if (status !== 'running') {
                 clearInterval(intv)
+                // 注意null progress
                 if (status === "finished") {
-                    setResult(res.data)
-                    const ls = result2list(res.data)
+                    const {results} = res.data
+                    setResult(results)
+                    const ls = result2list(results)
                     setList(ls)
                 }
             }
@@ -84,7 +86,7 @@ const TestsetPredictionPage = (props) => {
             >
                 <Descriptions>
                     <Descriptions.Item label="模型名称">transE+MLP(tanh)</Descriptions.Item>
-                    <Descriptions.Item label="数据样本数">13257</Descriptions.Item>
+                    {/* <Descriptions.Item label="数据样本数">13257</Descriptions.Item> */}
                     <Descriptions.Item label="实验状态">
                         <Tag color={color}>{tagname}</Tag>
                     </Descriptions.Item>
@@ -92,18 +94,18 @@ const TestsetPredictionPage = (props) => {
                 <Form>
                     <Form.Item label="对照模型">
                         <Select value={compareKey} onChange={setCompareKey} style={{ width: '200px' }}>
-                            <Select.Option key="transe">Transe</Select.Option>
-                            <Select.Option key="transh">Transh</Select.Option>
-                            <Select.Option key="transd">Transd</Select.Option>
-                            <Select.Option key="toruse">Toruse</Select.Option>
-                            <Select.Option key="crosse">Crosse</Select.Option>
+                            <Select.Option key="transe">transE</Select.Option>
+                            <Select.Option key="transh">transH</Select.Option>
+                            <Select.Option key="transd">transD</Select.Option>
+                            <Select.Option key="toruse">torusE</Select.Option>
+                            <Select.Option key="crosse">crossE</Select.Option>
                         </Select>
                     </Form.Item>
                 </Form>
                 { status === "running" && (<Progress percent={50} />)}
             </Card>
             <Divider />
-            <StaticCard title="TransE+MLP(tanh)" result={result} loading={status === "running"} compare={COMPAREMAP[compareKey]} />
+            <StaticCard title="transE+MLP(tanh)" result={result} loading={status === "running"} compare={COMPAREMAP[compareKey]} />
             <Divider />
             <StaticCard title={COMPAREMAP[compareKey].name} result={COMPAREMAP[compareKey]} compare={result} />
             <Divider />
