@@ -11,6 +11,26 @@ export const GetPredictTail = (params) => {
     return ret
 }
 
+const mockResult = {
+    "name": "我叫大熊猫",
+    "pred": [
+        "Python语言程序设计",
+        "计算机编码与密码学",
+        "人工智能实践：Tensorflow笔记",
+        "数据结构",
+        "数据库系统概论（基础篇）",
+        "面向对象程序设计??Java语言",
+        "Python网络爬虫与信息提取",
+        "算法设计与问题求解",
+        "C语言程序设计",
+        "大学计算机"
+    ],
+    "real": [
+        "Python语言程序设计",
+        "人工智能实践：Tensorflow笔记"
+    ]
+}
+
 const STUDENTS = [
     { name: 'a01', id: 0 },
     { name: 'b12', id: 1 },
