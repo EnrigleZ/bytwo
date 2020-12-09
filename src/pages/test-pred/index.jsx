@@ -1,8 +1,9 @@
 import React from 'react'
 import { Divider, Descriptions, Card, Button, Tag, Select, Form, message } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
+import { Line } from '@ant-design/charts'
 
-import { GetCheckStatus, CreateExperiment, COMPAREMAP } from './logics'
+import { GetCheckStatus, CreateExperiment, COMPAREMAP, result2list } from './logics'
 import StaticCard from './static-card'
 
 const defaultResult = {}
@@ -19,6 +20,8 @@ const TestsetPredictionPage = (props) => {
     const [result, setResult] = React.useState(defaultResult)
     const [compareKey, setCompareKey] = React.useState('transe')
     const [intv, setIntv] = React.useState(null)
+    const [list, setList] = React.useState(result2list(null))
+    const [color, tagname] = tagMap[status]
 
     const checkStatus = React.useCallback((intv) => {
         GetCheckStatus().then(res => {
@@ -28,6 +31,8 @@ const TestsetPredictionPage = (props) => {
                 clearInterval(intv)
                 if (status === "finished") {
                     setResult(res.data)
+                    const ls = result2list(res.data)
+                    setList(ls)
                 }
             }
         })
@@ -45,7 +50,6 @@ const TestsetPredictionPage = (props) => {
         return interval
     }
 
-
     React.useEffect(() => {
         const interval = startLoop()
         
@@ -54,8 +58,8 @@ const TestsetPredictionPage = (props) => {
             setIntv(null)
         }
     }, [])
-    
-    const [color, tagname] = tagMap[status]
+
+    console.log(list)
     return (
         <>
             <Card
@@ -67,7 +71,11 @@ const TestsetPredictionPage = (props) => {
                     type="primary"
                     onClick={() => {
                         CreateExperiment()
-                            .then(() => { message.success("提交实验成功")})
+                            .then(() => {
+                                message.success("提交实验成功")
+                                setResult(defaultResult)
+                                setStatus("running")
+                            })
                             .catch(() => { message.error("提交实验失败") })
                         startLoop()
                     }}
@@ -99,7 +107,10 @@ const TestsetPredictionPage = (props) => {
             <StaticCard title="TransE+MLP(tanh)" result={result} loading={status === "running"} compare={COMPAREMAP[compareKey]} />
             <Divider />
             <StaticCard title={COMPAREMAP[compareKey].name} result={COMPAREMAP[compareKey]} compare={result} />
-
+            <Divider />
+            <Card title="性能比较">
+                <Line seriesField="model" autoFit={true} data={list}   xField='key' yField='value' point={{size: 5, shape: 'diamond'}} />
+            </Card>
         </>
     )
 }
