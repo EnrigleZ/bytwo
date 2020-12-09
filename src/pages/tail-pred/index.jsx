@@ -1,8 +1,9 @@
 import React from 'react'
-import { Button, Select, Card, Form, message } from 'antd'
+import { Button, Select, Card, Form, message, Divider } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
+import Graph from 'react-graph-vis'
 
-import { getRandomStudents, GetPredictTail } from './logics'
+import { getRandomStudents, GetPredictTail, getGraph } from './logics'
 
 const formLayout = {
     labelCol: { span: 8 },
@@ -12,7 +13,27 @@ const formLayout = {
 const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
 }
-
+const options = {
+    layout: {
+        hierarchical: false,
+        randomSeed: 42
+    },
+    edges: {
+        color: "#000000",
+        length: 80
+    },
+    nodes: {
+        physics: false,
+        size: 50,
+    },
+    height: "500px",
+    physics: {
+        enabled: false
+    },
+    interaction: {
+        dragView: false
+    }
+}
 const TailPredPage = () => {
     const [students, setStudents] = React.useState([])
     const [selectedStudent, setSelected] = React.useState(null)
@@ -25,41 +46,48 @@ const TailPredPage = () => {
 
     React.useEffect(refreshCb, [refreshCb])
 
-    return (<Card title="尾实体预测">
-        <Form {...formLayout}>
-            <Form.Item label={<div>
-                <Button
-                    shape="circle"
-                    icon={<RedoOutlined />}
-                    size="small"
-                    onClick={() => { refreshCb() }}
-                />
-                <span style={{ marginLeft: '10px' }}>选择学生</span>
-            </div>}>
-                <Select value={selectedStudent} onChange={value => { setSelected(value) }}>
-                    {students.map(({ name, id }) => {
-                        return (<Select.Option value={id} key={id}>{name}</Select.Option>)
-                    })}
-                </Select>
-            </Form.Item>
-            <Form.Item {...tailLayout}>
-                <Button
-                    type="primary"
-                    htmlType="submit"
-                    onClick={() => {
-                        if (selectedStudent === null) {
-                            message.error("请选择一名学生")
-                            return
-                        }
-                        const params = { id: selectedStudent }
-                        GetPredictTail(params).then(res => {
-                            console.log(res)
-                        })
-                    }}
-                >提交</Button>
-           </Form.Item>
-        </Form>
-    </Card>)
+    return (
+        <>
+            <Card title="尾实体预测">
+                <Form {...formLayout}>
+                    <Form.Item label={<div>
+                        <Button
+                            shape="circle"
+                            icon={<RedoOutlined />}
+                            size="small"
+                            onClick={() => { refreshCb() }}
+                        />
+                        <span style={{ marginLeft: '10px' }}>选择学生</span>
+                    </div>}>
+                        <Select value={selectedStudent} onChange={value => { setSelected(value) }}>
+                            {students.map(({ name, id }) => {
+                                return (<Select.Option value={id} key={id}>{name}</Select.Option>)
+                            })}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item {...tailLayout}>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            onClick={() => {
+                                if (selectedStudent === null) {
+                                    message.error("请选择一名学生")
+                                    return
+                                }
+                                const params = { id: selectedStudent }
+                                GetPredictTail(params).then(res => {
+                                    console.log(res)
+                                })
+                            }}
+                        >提交</Button>
+                    </Form.Item>
+                </Form>
+            </Card>
+            <Divider />
+            <Card title="预测结果展示">
+                <Graph graph={getGraph()} options={options} />
+            </Card>
+        </>)
 }
 
 export default TailPredPage

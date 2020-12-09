@@ -42,3 +42,19 @@ const STUDENTS = [
     { name: 'b2728', id: 27 },
     { name: 'c2829', id: 28 }
 ]
+
+const mock = []
+for (let i = 0; i < 10; ++ i) {
+    mock.push((Math.random() * 100000).toFixed(0) + "课程名字")
+}
+
+export function getGraph(data, trueData) {
+    const nodes = mock.map((value, index) => {
+        return { id: value, label: value, title: value, color: index % 3 ? "#95de64" : "#ffa39e" }
+    })
+    const graph = {
+        nodes: nodes.concat({ id: 'student', label: 'student_name' }),
+        edges: mock.map(value => ({ from: 'student', to: value }))
+    }
+    return graph
+}
