@@ -1,8 +1,8 @@
 import React from 'react'
-import { Divider, Descriptions, Card, Button, Tag, Select, Form } from 'antd'
+import { Divider, Descriptions, Card, Button, Tag, Select, Form, message } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
 
-import { GetCheckStatus, COMPAREMAP } from './logics'
+import { GetCheckStatus, CreateExperiment, COMPAREMAP } from './logics'
 import StaticCard from './static-card'
 
 const defaultResult = {}
@@ -10,31 +10,52 @@ const defaultResult = {}
 const tagMap = {
     notstarted: ["pink", "未开始"],
     running: ["blue", "运行中"],
-    finished: ["green", "已完成"]
+    finished: ["green", "已完成"],
+    undefined: ['', '-']
 }
 
 const TestsetPredictionPage = (props) => {
-    const [spinning1, setSpinning1] = React.useState(false)
-    const [spinning2, setSpinning2] = React.useState(false)
-
-    const [status, setStatus] = React.useState('notstarted')
-
+    const [status, setStatus] = React.useState(undefined)
     const [result, setResult] = React.useState(defaultResult)
-
     const [compareKey, setCompareKey] = React.useState('transe')
+    const [intv, setIntv] = React.useState(null)
 
-    const checkStatus = React.useCallback(() => {
+    const checkStatus = React.useCallback((intv) => {
         GetCheckStatus().then(res => {
             const { status } = res.data
             setStatus(status)
+            if (status !== 'running') {
+                clearInterval(intv)
+                if (status === "finished") {
+                    setResult(res.data)
+                }
+            }
         })
     }, [setStatus])
 
-    React.useEffect(() => {
+    const startLoop = () => {
+        console.log("Start loop")
+        if (intv) clearInterval(intv)
+        
         checkStatus()
-    }, [checkStatus])
-    const [color, tagname] = tagMap[status]
+        const interval = setInterval(() => {
+            checkStatus(interval)
+        }, 1000)
+        setIntv(interval)
+        return interval
+    }
 
+
+    React.useEffect(() => {
+        const interval = startLoop()
+        
+        return () => {
+            clearInterval(interval)
+            setIntv(null)
+        }
+    }, [])
+    
+    const [color, tagname] = tagMap[status]
     return (
         <>
             <Card
@@ -44,8 +65,13 @@ const TestsetPredictionPage = (props) => {
                 </div>)}
                 extra={(<Button
                     type="primary"
-                    onClick={() => { }}
-                    disabled={status !== 'notstarted'}
+                    onClick={() => {
+                        CreateExperiment()
+                            .then(() => { message.success("提交实验成功")})
+                            .catch(() => { message.error("提交实验失败") })
+                        startLoop()
+                    }}
+                    disabled={status === 'running'}
                 >
                     开始实验
                 </Button>)}
@@ -70,9 +96,9 @@ const TestsetPredictionPage = (props) => {
                 </Form>
             </Card>
             <Divider />
-            <StaticCard title="测试配置一" result={result} loading={spinning1} compare={COMPAREMAP[compareKey]} />
+            <StaticCard title="TransE+MLP(tanh)" result={result} loading={status === "running"} compare={COMPAREMAP[compareKey]} />
             <Divider />
-            <StaticCard title={COMPAREMAP[compareKey].name} result={COMPAREMAP[compareKey]} compare={COMPAREMAP[compareKey]} />
+            <StaticCard title={COMPAREMAP[compareKey].name} result={COMPAREMAP[compareKey]} compare={result} />
 
         </>
     )
