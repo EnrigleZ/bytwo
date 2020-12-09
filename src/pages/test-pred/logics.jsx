@@ -11,13 +11,10 @@ export const CreateExperiment = () => {
     return ret
 }
 
-
-// export const getPrediction = (modelName, dataset, weightDecay) => {
-//     const params = {
-//         model_name: modelName,
-//         dataset,
-//         weight_decay: weightDecay
-//     }
-//     const ret = GetTestsetPredictionAPI(params)
-//     return ret
-// }
+export const COMPAREMAP = {
+    transe: { name: 'TransE', hit1: 19.91, hit5: 24.28, hit10: 29.69, mr: 38.55},
+    transh: { name: 'TransH', hit1: 0.23, hit5: 2.76, hit10: 5.87, mr: 98.09},
+    transd: { name: 'TransD', hit1: 20.37, hit5: 34.18, hit10: 40.39, mr: 36.30},
+    toruse: { name: 'TorusE', hit1: 0.35, hit5: 2.65, hit10: 4.83, mr: 101.48},
+    crosse: { name: 'CrossE', hit1: 19.91, hit5: 37.17, hit10: 45.22, mr: 38.83},
+}

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Divider, Descriptions, Card, Button, Tag } from 'antd'
+import { Divider, Descriptions, Card, Button, Tag, Select, Form } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
 
-import { GetCheckStatus } from './logics'
+import { GetCheckStatus, COMPAREMAP } from './logics'
 import StaticCard from './static-card'
 
 const defaultResult = {}
@@ -19,8 +19,9 @@ const TestsetPredictionPage = (props) => {
 
     const [status, setStatus] = React.useState('notstarted')
 
-    const [result1, setResult1] = React.useState(defaultResult)
-    const [result2, setResult2] = React.useState(defaultResult)
+    const [result, setResult] = React.useState(defaultResult)
+
+    const [compareKey, setCompareKey] = React.useState('transe')
 
     const checkStatus = React.useCallback(() => {
         GetCheckStatus().then(res => {
@@ -43,7 +44,7 @@ const TestsetPredictionPage = (props) => {
                 </div>)}
                 extra={(<Button
                     type="primary"
-                    onClick={() => {}}
+                    onClick={() => { }}
                     disabled={status !== 'notstarted'}
                 >
                     开始实验
@@ -56,11 +57,22 @@ const TestsetPredictionPage = (props) => {
                         <Tag color={color}>{tagname}</Tag>
                     </Descriptions.Item>
                 </Descriptions>
+                <Form>
+                    <Form.Item label="对照模型">
+                        <Select value={compareKey} onChange={setCompareKey} style={{ width: '200px' }}>
+                            <Select.Option key="transe">Transe</Select.Option>
+                            <Select.Option key="transh">Transh</Select.Option>
+                            <Select.Option key="transd">Transd</Select.Option>
+                            <Select.Option key="toruse">Toruse</Select.Option>
+                            <Select.Option key="crosse">Crosse</Select.Option>
+                        </Select>
+                    </Form.Item>
+                </Form>
             </Card>
             <Divider />
-            <StaticCard title="测试配置一" result={result1} loading={spinning1} compare={result2} />
+            <StaticCard title="测试配置一" result={result} loading={spinning1} compare={COMPAREMAP[compareKey]} />
             <Divider />
-            <StaticCard title="测试配置二" result={result2} loading={spinning2} compare={result1} />
+            <StaticCard title={COMPAREMAP[compareKey].name} result={COMPAREMAP[compareKey]} compare={COMPAREMAP[compareKey]} />
 
         </>
     )
