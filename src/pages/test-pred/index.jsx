@@ -39,7 +39,6 @@ const TestsetPredictionPage = (props) => {
     }, [setStatus])
 
     const startLoop = () => {
-        console.log("Start loop")
         if (intv) clearInterval(intv)
         
         checkStatus()
@@ -59,7 +58,6 @@ const TestsetPredictionPage = (props) => {
         }
     }, [])
 
-    console.log(list)
     return (
         <>
             <Card
