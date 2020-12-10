@@ -3,6 +3,8 @@ import { Card, Divider } from 'antd'
 
 import HoverItem from './hover-item'
 import PAGEIMAGE from '../../misc/page3.png'
+import PCAIMAGE from '../../misc/pca.png'
+import EFFECTIMAGE from '../../misc/effect.png'
 import { TEXTS } from './logics'
 
 
@@ -35,6 +37,14 @@ const ImageAreaWithTips = () => {
                 <b>{text.title}</b>
                 <Divider hidden={!text.description} />
                 <div><b hidden={!text.description}>结论：</b>{text.description}</div>
+            </Card>
+            <Divider />
+            <Card title="主成分分析">
+                <img className="page-image" src={PCAIMAGE} />
+            </Card>
+            <Divider />
+            <Card title="路径作用关系">
+                <img style={{width: "80%"}} className="page-image" src={EFFECTIMAGE} />
             </Card>
         </>
     )

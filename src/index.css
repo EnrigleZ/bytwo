@@ -62,3 +62,8 @@ code {
   cursor: pointer;
 }
 
+img.page-image {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
