@@ -45,7 +45,7 @@ const TailPredPage = () => {
     const refreshCb = React.useCallback(() => {
         const randomStudents = getRandomStudents()
         setStudents(randomStudents)
-        setSelected(randomStudents[0].id)
+        setSelected(randomStudents[0])
     }, [setStudents, setSelected, getRandomStudents])
 
     React.useEffect(refreshCb, [refreshCb])
