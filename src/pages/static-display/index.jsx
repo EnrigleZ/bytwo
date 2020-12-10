@@ -18,7 +18,7 @@ const ImageAreaWithTips = () => {
 
     return (
         <>
-            <Card title="全部路径展示">
+            <Card title="路径作用关系图">
                 <div style={{position: "relative"}}>
                     <StaticPage ref={onRefChange}/>
                     <HoverItem setText={setText} image={image} text={TEXTS[1]} left={0.015} top={0.26} h={0.1} w={0.12}/>
@@ -33,17 +33,17 @@ const ImageAreaWithTips = () => {
                 </div>
             </Card>
             <Divider />
-            <Card title="路径解释">
+            <Card title="路径分析">
                 <b>{text.title}</b>
                 <Divider hidden={!text.description} />
                 <div><b hidden={!text.description}>结论：</b>{text.description}</div>
             </Card>
             <Divider />
-            <Card title="主成分分析">
+            <Card title="探索性因子分析 ">
                 <img className="page-image" src={PCAIMAGE} />
             </Card>
             <Divider />
-            <Card title="路径作用关系">
+            <Card title="验证性因子分析">
                 <img style={{width: "80%"}} className="page-image" src={EFFECTIMAGE} />
             </Card>
         </>
@@ -51,7 +51,7 @@ const ImageAreaWithTips = () => {
 }
 
 const StaticPage = React.forwardRef((props, ref) => {
-    return <img src={PAGEIMAGE} ref={ref}/>
+    return <img style={{width: "82%"}} src={PAGEIMAGE} ref={ref}/>
 })
 
 export default ImageAreaWithTips

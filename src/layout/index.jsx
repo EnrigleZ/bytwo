@@ -29,7 +29,7 @@ const MyLayout = (props) => {
                             <Link to="/tail-pred">选课预测</Link>
                         </Menu.Item>
                         <Menu.Item key="static">
-                            <Link to="/static">路径展示</Link>
+                            <Link to="/static">学生行为分析</Link>
                         </Menu.Item>
                         {/* <Menu.Item key="pred-step">
                             <Link to="/pred-step">各题目作答预测</Link>
