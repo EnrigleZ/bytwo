@@ -10,6 +10,7 @@ import MyLayout from './layout'
 import HomePage from './pages/home'
 import TestsetPrediction from './pages/test-pred'
 import TailPrediction from './pages/tail-pred'
+import StaticPage from './pages/static-display'
 // import PredictStepPage from './pages/case-pred/pred-step'
 // import PredictExercisePage from './pages/case-pred/pred-exercise'
 
@@ -20,6 +21,7 @@ function App() {
         <BrowserRouter>
           <MyLayout>
             <Switch>
+              <Route path="/static" component={StaticPage} />
               <Route path="/test-pred" component={TestsetPrediction} />
               <Route path="/tail-pred" component={TailPrediction} />
               <Route path="/" component={TestsetPrediction} />

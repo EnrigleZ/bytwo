@@ -62,8 +62,8 @@ const TailPredPage = () => {
                         <span style={{ marginLeft: '10px' }}>选择学生</span>
                     </div>}>
                         <Select value={selectedStudent} onChange={value => { setSelected(value) }}>
-                            {students.map(({ name, id }) => {
-                                return (<Select.Option value={id} key={id}>{name}</Select.Option>)
+                            {students.map((value) => {
+                                return (<Select.Option value={value} key={value}>{value}</Select.Option>)
                             })}
                         </Select>
                     </Form.Item>
@@ -77,7 +77,7 @@ const TailPredPage = () => {
                                     return
                                 }
                                 const params = { id: selectedStudent }
-                                getMockStudentPredict(params).then(res => {
+                                GetPredictTail(params).then(res => {
                                     console.log(res)
                                     const g = getGraph(res.data.name, res.data.pred, res.data.real)
                                     setGraph(g)

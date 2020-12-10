@@ -3,7 +3,7 @@ import { stringify } from 'qs'
 import { getRandom } from '../../utils/array'
 
 export function getRandomStudents(n = 10) {
-    return getRandom(STUDENTS, n)
+    return getRandom(BETTER, n - 2).concat(getRandom(WORSE, 2))
 }
 
 export const GetPredictTail = (params) => {
@@ -30,6 +30,32 @@ const mockResult = {
         "人工智能实践：Tensorflow笔记"
     ]
 }
+
+const BETTER = [
+    '纸浅要躬行',
+    '18计算机本科1班-高磊',
+    '要努力不要平庸',
+    '不一样-都一样',
+    '计算机1704-方应明',
+    '稻根腾鹿',
+    'motoe680i',
+    '山鲁佐德mooc2',
+    '生活是一面镜子',
+    '619784008163com',
+]
+
+const WORSE = [
+    '金露201610800409zjut',
+    '太执着而已mooc15',
+    '周国维',
+    '30沈阳',
+    'FAFU3175302023',
+    '小白小白小白小白小白了白',
+    'iluzongyuan',
+    '剑圣无极',
+    '黄鑫要加油学啊',
+    '我爱学习学习爱我咯',
+]
 
 const STUDENTS = [
     { name: 'a01', id: 0 },
