@@ -7,7 +7,7 @@ export function getRandomStudents(n = 10) {
 }
 
 export const GetPredictTail = (params) => {
-    const ret = Axios.get(`pred-tail?${stringify(params)}`)
+    const ret = Axios.get(`pred-tail/${params.id}/`)
     return ret
 }
 

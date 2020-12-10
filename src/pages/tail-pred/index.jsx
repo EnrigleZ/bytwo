@@ -71,6 +71,7 @@ const TailPredPage = () => {
                         <Button
                             type="primary"
                             htmlType="submit"
+                            disabled={!selectedStudent}
                             onClick={() => {
                                 if (selectedStudent === null) {
                                     message.error("请选择一名学生")
