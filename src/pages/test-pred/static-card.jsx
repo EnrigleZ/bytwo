@@ -16,7 +16,7 @@ const StatComp = ({ value, compare, title, percentage, negative }) => {
     const delta = parseFloat(value) - parseFloat(compare)
 
     const valueStyle = !delta ? {} : delta > 0 ^ negative ? propInc : propDec
-    const valueStr = '' + (negative ? value : (value * 100).toFixed(2)) + (percentage ? '%' : '')
+    const valueStr = '' + (negative ? (value ? value.toFixed(2) : value) : (value * 100).toFixed(2)) + (percentage ? '%' : '')
     let extra = {}
     if (negative) extra.prefix = null
     return (<Statistic {...valueStyle} title={title} value={value === undefined ? '-' : valueStr} {...extra}/>)
