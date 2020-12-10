@@ -51,7 +51,7 @@ const ImageAreaWithTips = () => {
 }
 
 const StaticPage = React.forwardRef((props, ref) => {
-    return <img style={{width: "82%"}} src={PAGEIMAGE} ref={ref}/>
+    return <img style={{width: "60%"}} src={PAGEIMAGE} ref={ref}/>
 })
 
 export default ImageAreaWithTips
