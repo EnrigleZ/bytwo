@@ -116,7 +116,25 @@ const TestsetPredictionPage = (props) => {
             <StaticCard title={COMPAREMAP[compareKey].name} result={COMPAREMAP[compareKey]} compare={result} />
             <Divider />
             <Card title="性能比较">
-                <Line seriesField="model" autoFit={true} data={list}   xField='key' yField='value' point={{size: 5, shape: 'diamond'}} />
+                <Line seriesField="model" autoFit={true} data={list} yAxis={{
+                    label: {
+                        formatter: (v) => {
+                            return (v * 100).toFixed(2) + '%'
+                        },
+                        style: {
+                            fontSize: 16
+                        }
+                    }
+                }}
+                xAxis={{label: {style: {fontSize: 14}}}}
+                legend={{
+                    itemName: {
+                        style: {
+                            fontSize: 20
+                        }
+                    }
+                }}
+                xField='key' yField='value' point={{size: 5, shape: 'diamond'}} />
             </Card>
         </>
     )

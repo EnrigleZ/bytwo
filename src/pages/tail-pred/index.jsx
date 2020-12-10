@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Select, Card, Form, message, Divider } from 'antd'
+import { Button, Select, Card, Form, message, Divider, Spin } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
 import Graph from 'react-graph-vis'
 
@@ -38,6 +38,8 @@ const TailPredPage = () => {
     const [students, setStudents] = React.useState([])
     const [selectedStudent, setSelected] = React.useState(null)
     const [graph, setGraph] = React.useState(null)
+    const [loading, setLoading] = React.useState(false)
+    const [text, setText] = React.useState('')
     // const [temp, setTemp] = React.useState(0)
 
     const refreshCb = React.useCallback(() => {
@@ -78,11 +80,13 @@ const TailPredPage = () => {
                                     return
                                 }
                                 const params = { id: selectedStudent }
+                                setLoading(true)
                                 GetPredictTail(params).then(res => {
-                                    console.log(res)
                                     const g = getGraph(res.data.name, res.data.pred, res.data.real)
                                     setGraph(g)
-                                    // setTemp(c => c + 1)
+                                    setText(res.data.real.join('、'))
+                                }).finally(() => {
+                                    setLoading(false)
                                 })
                             }}
                         >提交</Button>
@@ -91,7 +95,13 @@ const TailPredPage = () => {
             </Card>
             <Divider />
             <Card hidden={graph === null} title="预测结果展示">
-                {graph && (<Graph key={`${selectedStudent}${1}`} graph={graph} options={options} />)}
+                <Spin spinning={loading}>
+                    <b>实际选课</b>
+                    <div>
+                        {text}
+                    </div>
+                    {graph && (<Graph key={`${selectedStudent}${loading}`} graph={graph} options={options} />)}
+                </Spin>
             </Card>
         </>)
 }
