@@ -55,7 +55,7 @@ code {
 
 .hover-item {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.2);
+  /* background-color: rgba(0, 0, 0, 0.2); */
   color: #FFF;
   font-size: 20px;
   padding-left: 30px;
