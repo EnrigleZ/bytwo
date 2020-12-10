@@ -3,7 +3,7 @@ import { Button, Select, Card, Form, message, Divider } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
 import Graph from 'react-graph-vis'
 
-import { getRandomStudents, GetPredictTail, getGraph } from './logics'
+import { getRandomStudents, GetPredictTail, getGraph, getMockStudentPredict } from './logics'
 
 const formLayout = {
     labelCol: { span: 8 },
@@ -23,7 +23,7 @@ const options = {
         length: 80
     },
     nodes: {
-        physics: false,
+        // physics: false,
         size: 50,
     },
     height: "500px",
@@ -31,12 +31,14 @@ const options = {
         enabled: false
     },
     interaction: {
-        dragView: false
+        // dragView: false
     }
 }
 const TailPredPage = () => {
     const [students, setStudents] = React.useState([])
     const [selectedStudent, setSelected] = React.useState(null)
+    const [graph, setGraph] = React.useState(null)
+    // const [temp, setTemp] = React.useState(0)
 
     const refreshCb = React.useCallback(() => {
         const randomStudents = getRandomStudents()
@@ -48,7 +50,7 @@ const TailPredPage = () => {
 
     return (
         <>
-            <Card title="尾实体预测">
+            <Card title="选课预测">
                 <Form {...formLayout}>
                     <Form.Item label={<div>
                         <Button
@@ -75,8 +77,11 @@ const TailPredPage = () => {
                                     return
                                 }
                                 const params = { id: selectedStudent }
-                                GetPredictTail(params).then(res => {
+                                getMockStudentPredict(params).then(res => {
                                     console.log(res)
+                                    const g = getGraph(res.data.name, res.data.pred, res.data.real)
+                                    setGraph(g)
+                                    // setTemp(c => c + 1)
                                 })
                             }}
                         >提交</Button>
@@ -84,8 +89,8 @@ const TailPredPage = () => {
                 </Form>
             </Card>
             <Divider />
-            <Card title="预测结果展示">
-                <Graph graph={getGraph()} options={options} />
+            <Card hidden={graph === null} title="预测结果展示">
+                {graph && (<Graph key={`${selectedStudent}${1}`} graph={graph} options={options} />)}
             </Card>
         </>)
 }

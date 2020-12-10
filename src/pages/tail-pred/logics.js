@@ -63,18 +63,34 @@ const STUDENTS = [
     { name: 'c2829', id: 28 }
 ]
 
-const mock = []
-for (let i = 0; i < 10; ++ i) {
-    mock.push((Math.random() * 100000).toFixed(0) + "课程名字")
+const successStyle = {
+    color: {
+        background: '#d9f7be',
+        border: '#7cb305'
+    },
+}
+const failStyle = {
+    color: {
+        background: '#ffccc7',
+        border: '#610b00'
+    }
 }
 
-export function getGraph(data, trueData) {
-    const nodes = mock.map((value, index) => {
-        return { id: value, label: value, title: value, color: index % 3 ? "#95de64" : "#ffa39e" }
+export function getGraph(name, data, trueData) {
+    if (!data || !trueData) return {}
+    const nodes = data.map((value, index) => {
+        const basicStyle = trueData.indexOf(value) >= 0 ? successStyle : failStyle
+        return { ...basicStyle, id: value, label: value, title: value, shape: 'box', margin: 10, chosen: false }
     })
     const graph = {
-        nodes: nodes.concat({ id: 'student', label: 'student_name' }),
-        edges: mock.map(value => ({ from: 'student', to: value }))
+        nodes: nodes.concat({ id: 'student', label: name, shape: 'circle' }),
+        edges: data.map(value => ({ from: 'student', to: value }))
     }
     return graph
+}
+
+export async function getMockStudentPredict() {
+    return {
+        data: mockResult
+    }
 }

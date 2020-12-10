@@ -12,11 +12,11 @@ export const CreateExperiment = () => {
 }
 
 export const COMPAREMAP = {
-    transe: { name: 'transE', hit1: 19.91 / 100, hit3: 0.42, hit5: 24.28 / 100, hit10: 29.69 / 100, mr: 38.55 },
-    transh: { name: 'transH', hit1: 0.23 / 100, hit3: 0.42, hit5: 2.76 / 100, hit10: 5.87 / 100, mr: 98.09 },
-    transd: { name: 'transD', hit1: 20.37 / 100, hit3: 0.42, hit5: 34.18 / 100, hit10: 40.39 / 100, mr: 36.30 },
-    toruse: { name: 'torusE', hit1: 0.35 / 100, hit3: 0.42, hit5: 2.65 / 100, hit10: 4.83 / 100, mr: 101.48 },
-    crosse: { name: 'crossE', hit1: 19.91 / 100, hit3: 0.42, hit5: 37.17 / 100, hit10: 45.22 / 100, mr: 38.83 },
+    transe: { name: 'transE', hit1: 0.2122, hit3: 0.2376, hit5: 0.2963, hit10: 0.4302, mr: 36.53 },
+    transh: { name: 'transH', hit1: 0.2090, hit3: 0.2132, hit5: 0.2164, hit10: 0.2386, mr: 74.82 },
+    transd: { name: 'transD', hit1: 0.2127, hit3: 0.2439, hit5: 0.3217, hit10: 0.3841, mr: 34.79 },
+    toruse: { name: 'torusE', hit1: 0.0053, hit3: 0.0254, hit5: 0.0254, hit10: 0.0555, mr: 101.30 },
+    crosse: { name: 'crossE', hit1: 0.1724, hit3: 0.2422, hit5: 0.2882, hit10: 0.3469, mr: 59.06 }
 }
 
 const singleResult2List = (result, model) => {
