@@ -146,6 +146,11 @@ const TestsetPredictionPage = (props) => {
                             }
                         }
                     }}
+                    tooltip={{
+                        formatter: (ref) => {
+                            return {name: ref.model, value: ref.value.toFixed(2) + '%'}
+                        }
+                    }}
                     // lineStyle={(ref) => {
                     //     console.log(COMPAREMAP[ref.model])
                     //     return { stroke: COMPAREMAP[ref.model.toLowerCase()]?.color }
