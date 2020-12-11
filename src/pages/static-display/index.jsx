@@ -35,6 +35,8 @@ const ImageAreaWithTips = () => {
             <Divider />
             <Card title="路径分析">
                 <b>{text.title}</b>
+                <Divider hidden={!text.analysis} />
+                <div><b hidden={!text.analysis}>分析：</b>{text.analysis}</div>
                 <Divider hidden={!text.description} />
                 <div><b hidden={!text.description}>结论：</b>{text.description}</div>
             </Card>
