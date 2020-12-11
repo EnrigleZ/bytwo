@@ -18,7 +18,7 @@ const ImageAreaWithTips = () => {
 
     return (
         <>
-            <Card title="路径作用关系图">
+            <Card title="路径作用关系分析">
                 <div style={{position: "relative"}}>
                     <StaticPage ref={onRefChange}/>
                     <HoverItem setText={setText} image={image} text={TEXTS[1]} left={0.015} top={0.26} h={0.1} w={0.12}/>
