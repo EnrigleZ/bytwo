@@ -32,7 +32,7 @@ const ImageAreaWithTips = () => {
                     <HoverItem setText={setText} image={image} text={TEXTS[9]} left={0.75} top={0.15} h={0.1} w={0.18}/>
                 </div>
             </Card>
-            <Card title="路径分析">
+            <Card >
                 <b>{text.title}</b>
                 <Divider hidden={!text.analysis} />
                 <div><b hidden={!text.analysis}>分析：</b>{text.analysis}</div>
