@@ -29,22 +29,11 @@ const MyLayout = (props) => {
                             <Link to="/tail-pred">选课预测</Link>
                         </Menu.Item>
                         <Menu.Item key="static">
-                            <Link to="/static">学生行为分析</Link>
+                            <Link to="/static">学生行为意图分析</Link>
                         </Menu.Item>
-                        {/* <Menu.Item key="pred-step">
-                            <Link to="/pred-step">各题目作答预测</Link>
-                        </Menu.Item>
-                        <Menu.Item key="pred-exercise">
-                            <Link to="/pred-exercise">题目掌握变化曲线</Link>
-                        </Menu.Item> */}
                     </Menu>
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px' }}>
-                    {/* <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb> */}
                     <Content
                         className="site-layout-background"
                         style={{

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Select, Card, Form, message, Divider, Spin } from 'antd'
+import { Button, Select, Card, Form, message, Divider, Spin, Col, Row, Table } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
 import Graph from 'react-graph-vis'
 
@@ -39,7 +39,7 @@ const TailPredPage = () => {
     const [selectedStudent, setSelected] = React.useState(null)
     const [graph, setGraph] = React.useState(null)
     const [loading, setLoading] = React.useState(false)
-    const [text, setText] = React.useState('')
+    const [text, setText] = React.useState([])
     // const [temp, setTemp] = React.useState(0)
 
     const refreshCb = React.useCallback(() => {
@@ -84,7 +84,7 @@ const TailPredPage = () => {
                                 GetPredictTail(params).then(res => {
                                     const g = getGraph(res.data.name, res.data.pred, res.data.real)
                                     setGraph(g)
-                                    setText(res.data.real.join('、'))
+                                    setText(res.data.real.map(v => ({key: v})))
                                 }).finally(() => {
                                     setLoading(false)
                                 })
@@ -96,11 +96,19 @@ const TailPredPage = () => {
             <Divider />
             <Card hidden={graph === null} title="预测结果展示">
                 <Spin spinning={loading}>
-                    <b>实际选课</b>
-                    <div>
-                        {text}
-                    </div>
-                    {graph && (<Graph key={`${selectedStudent}${loading}`} graph={graph} options={options} />)}
+                    <Row>
+                        <Col span={6}>
+                            <Table
+                                dataSource={text}
+                                columns={[{dataIndex: 'key', title: '实际选课'}]}
+                                pagination={false}
+                                size="small"
+                            />
+                        </Col>
+                        <Col span={18} >
+                            {graph && (<Graph key={`${selectedStudent}${loading}`} graph={graph} options={options} />)}
+                        </Col>
+                    </Row>
                 </Spin>
             </Card>
         </>)

@@ -13,7 +13,7 @@ const ImageAreaWithTips = () => {
     const [text, setText] = React.useState({title: '', description: ''})
 
     const onRefChange = React.useCallback((node) => {
-        setTimeout(() => {setImage(node)}, 1)
+        setTimeout(() => {setImage(node)}, 100)
     }, [setImage])
 
     return (
@@ -32,7 +32,6 @@ const ImageAreaWithTips = () => {
                     <HoverItem setText={setText} image={image} text={TEXTS[9]} left={0.75} top={0.15} h={0.1} w={0.18}/>
                 </div>
             </Card>
-            <Divider />
             <Card title="路径分析">
                 <b>{text.title}</b>
                 <Divider hidden={!text.analysis} />
@@ -53,7 +52,7 @@ const ImageAreaWithTips = () => {
 }
 
 const StaticPage = React.forwardRef((props, ref) => {
-    return <img style={{width: "60%"}} src={PAGEIMAGE} ref={ref}/>
+    return <img style={{width: "55%"}} src={PAGEIMAGE} ref={ref}/>
 })
 
 export default ImageAreaWithTips

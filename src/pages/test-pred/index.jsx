@@ -31,7 +31,12 @@ const TestsetPredictionPage = (props) => {
             if (status !== 'running') {
                 clearInterval(intv)
                 if (status === "finished") {
-                    const {results} = res.data
+                    const { results } = res.data
+                    if (results) {
+                        ['hit1', 'hit3', 'hit5', 'hit10'].forEach(k => {
+                            results[k] = parseFloat(results[k].toFixed(4))
+                        })
+                    }
                     setResult(results)
                     const ls = result2list(results)
                     setList(ls)
@@ -48,7 +53,7 @@ const TestsetPredictionPage = (props) => {
 
     const startLoop = () => {
         if (intv) clearInterval(intv)
-        
+
         checkStatus()
         const interval = setInterval(() => {
             checkStatus(interval)
@@ -59,7 +64,7 @@ const TestsetPredictionPage = (props) => {
 
     React.useEffect(() => {
         const interval = startLoop()
-        
+
         return () => {
             clearInterval(interval)
             setIntv(null)
@@ -108,7 +113,7 @@ const TestsetPredictionPage = (props) => {
                         </Select>
                     </Form.Item>
                 </Form>
-                { status === "running" && (<Progress percent={progr} />)}
+                {status === "running" && (<Progress percent={progr} />)}
             </Card>
             <Divider />
             <StaticCard title="transE+MLP(tanh)" result={result} loading={status === "running"} compare={COMPAREMAP[compareKey]} />
@@ -126,15 +131,26 @@ const TestsetPredictionPage = (props) => {
                         }
                     }
                 }}
-                xAxis={{label: {style: {fontSize: 14}}}}
-                legend={{
-                    itemName: {
-                        style: {
-                            fontSize: 20
+                    xAxis={{
+                        label: {
+                            style: { fontSize: 14 },
+                            formatter: (v) => {
+                                return "hit@" + v.substr(3)
+                            }
                         }
-                    }
-                }}
-                xField='key' yField='value' point={{size: 5, shape: 'diamond'}} />
+                    }}
+                    legend={{
+                        itemName: {
+                            style: {
+                                fontSize: 20
+                            }
+                        }
+                    }}
+                    // lineStyle={(ref) => {
+                    //     console.log(COMPAREMAP[ref.model])
+                    //     return { stroke: COMPAREMAP[ref.model.toLowerCase()]?.color }
+                    // }}
+                    xField='key' yField='value' point={{ size: 5, shape: 'diamond' }} />
             </Card>
         </>
     )
