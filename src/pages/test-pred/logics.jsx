@@ -24,7 +24,7 @@ const singleResult2List = (result, model) => {
     if (!result) return ret
 
     a.forEach((key, index) => {
-        ret.push({ key, value: result[key] * 100, model })
+        ret.push({ key, value: parseFloat((result[key] * 100).toFixed(2)), model })
     })
     return ret
 }
