@@ -24,7 +24,7 @@ const singleResult2List = (result, model) => {
     if (!result) return ret
 
     a.forEach((key, index) => {
-        ret.push({ key, value: result[key], model })
+        ret.push({ key, value: result[key] * 100, model })
     })
     return ret
 }

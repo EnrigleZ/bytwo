@@ -124,7 +124,7 @@ const TestsetPredictionPage = (props) => {
                 <Line seriesField="model" autoFit={true} data={list} yAxis={{
                     label: {
                         formatter: (v) => {
-                            return (v * 100).toFixed(2) + '%'
+                            return (v * 1).toFixed(2) + '%'
                         },
                         style: {
                             fontSize: 16
