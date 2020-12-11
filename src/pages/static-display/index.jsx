@@ -46,7 +46,7 @@ const ImageAreaWithTips = () => {
             </Card>
             <Divider />
             <Card title="验证性因子分析">
-                <img style={{width: "80%"}} className="page-image" src={EFFECTIMAGE} />
+                <img style={{width: "100%"}} className="page-image" src={EFFECTIMAGE} />
             </Card>
         </>
     )
